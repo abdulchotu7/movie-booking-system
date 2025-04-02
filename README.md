@@ -8,6 +8,8 @@ This is a **FastAPI-based Movie Ticket Booking System** that allows users to:
 - **Admin users** can manage movies (add, update, delete) and view all bookings.
 
 The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for database management, and **Tailwind CSS** for a modern UI.
+## Live : 
+https://movie-ebon-nu.vercel.app/
 
 ## 🛠️ Features
 ### ✅ User Features
