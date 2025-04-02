@@ -22,9 +22,9 @@
         {% for booking in bookings %}
         <tr class="border-b hover:bg-gray-100 transition duration-200">
           <td class="py-4 px-5">{{ booking.id }}</td>
-          <td class="py-4 px-5 font-semibold">{{ booking.movie }}</td>
+          <td class="py-4 px-5 font-semibold">{{ booking.movie.title }}</td>
           <td class="py-4 px-5">{{ booking.showtime }}</td>
-          <td class="py-4 px-5 font-semibold text-green-600">${{ booking.price }}</td>
+          <td class="py-4 px-5 font-semibold text-green-600">${{ booking.movie.price }}</td>
           <td class="py-4 px-5">{{ booking.quantity }}</td>
           <td class="py-4 px-5 font-semibold text-gray-700">${{ booking.total }}</td>
           <td class="py-4 px-5 text-center">
