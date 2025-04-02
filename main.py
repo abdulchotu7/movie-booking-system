@@ -18,7 +18,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
-    password = Column(String)  # Stored in plaintext as requested
+    password = Column(String)  
     is_admin = Column(Boolean, default=False)
 
 # Movie Model
@@ -57,7 +57,6 @@ app = FastAPI()
 app.add_middleware(SessionMiddleware, secret_key="your-secret-key-32-chars-long")
 templates = Jinja2Templates(directory="templates")
 
-# Setup logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -70,7 +69,7 @@ def require_login(request: Request):
 
 def require_admin(request: Request, db: Session = Depends(get_db)):
     username = request.session.get("user")
-    is_admin = request.session.get("is_admin", False)  # Retrieve admin status from session
+    is_admin = request.session.get("is_admin", False)  
     
     if not username or not is_admin:
         logger.debug(f"Admin check failed for user {username}")
@@ -101,7 +100,7 @@ def create_admin():
         if not db.query(User).filter(User.username == "admin").first():
             admin = User(
                 username="admin",
-                password="adminpass",  # Plaintext as requested
+                password="adminpass",  
                 is_admin=True
             )
             db.add(admin)
@@ -113,8 +112,6 @@ def create_admin():
 seed_movies()
 create_admin()
 
-# Routes
-# ... (previous imports and setup remain the same until routes)
 
 # Routes
 @app.get("/", response_class=HTMLResponse)
@@ -123,7 +120,7 @@ async def home(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("index.html", {
         "request": request,
         "movies": movies,
-        "user": request.session.get("user"),  # User might be None
+        "user": request.session.get("user"), 
         "is_admin": request.session.get("is_admin", False)
     })
 
@@ -141,7 +138,7 @@ async def register_post(
     db: Session = Depends(get_db)
 ):
     try:
-        user = User(username=username, password=password)  # Plaintext storage
+        user = User(username=username, password=password)  
         db.add(user)
         db.commit()
         return RedirectResponse(url="/login", status_code=303)
@@ -161,11 +158,11 @@ async def login_post(
     db: Session = Depends(get_db)
 ):
     user = db.query(User).filter(User.username == username).first()
-    if not user or password != user.password:  # Plaintext comparison
+    if not user or password != user.password:  
         return HTMLResponse("Invalid credentials", status_code=400)
     
     request.session["user"] = username
-    request.session["is_admin"] = user.is_admin  # Store admin status in session
+    request.session["is_admin"] = user.is_admin  
     logger.debug(f"User {username} logged in. Admin: {user.is_admin}")
     return RedirectResponse(url="/", status_code=303)
 
@@ -270,7 +267,7 @@ async def admin_movies(
         "request": request,
         "movies": movies,
         "user": request.session.get("user"),
-        "is_admin": True  # Only admins reach this point
+        "is_admin": True  
     })
 
 @app.get("/admin/movies/add", response_class=HTMLResponse)
@@ -380,7 +377,6 @@ async def admin_bookings(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    # Get all bookings with movie information
     bookings = (
         db.query(Booking)
         .options(joinedload(Booking.movie))
@@ -388,7 +384,6 @@ async def admin_bookings(
         .all()
     )
     
-    # Prepare booking data for template
     booking_data = []
     for booking in bookings:
         booking_data.append({
