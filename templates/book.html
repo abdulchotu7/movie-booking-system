@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Book Movie{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-4">Book: {{ movie.title }}</h1>
+<div class="mb-6 p-4 bg-white rounded shadow">
+  <p><strong>Year:</strong> {{ movie.year }}</p>
+  <p><strong>Director:</strong> {{ movie.director }}</p>
+  <p><strong>Rating:</strong> {{ movie.rating }}</p>
+  <p><strong>Format:</strong> {{ movie.format }}</p>
+  <p><strong>Price:</strong> ${{ movie.price }}</p>
+</div>
+<form action="/book" method="post" class="space-y-4">
+  <input type="hidden" name="movie_id" value="{{ movie.id }}">
+  
+  <!-- Hardcoded showtimes -->
+  <label for="showtime" class="block text-gray-700">Select Showtime:</label>
+  <select name="showtime" id="showtime" class="mb-4 p-2 border rounded" required>
+    <option value="10:00">10:00</option>
+    <option value="14:00">14:00</option>
+    <option value="18:00">18:00</option>
+  </select>
+  
+  <label for="quantity" class="block text-gray-700">Quantity:</label>
+  <input type="number" name="quantity" id="quantity" min="1" value="1" class="mb-4 p-2 border rounded" required>
+  
+  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Book Now</button>
+</form>
+<a href="/" class="mt-4 inline-block text-blue-500 hover:underline">Back to Home</a>
+{% endblock %}

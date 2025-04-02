@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy
+jinja2
+databases
+psycopg2-binary  # If using PostgreSQL
+itsdangerous
+python-multipart
