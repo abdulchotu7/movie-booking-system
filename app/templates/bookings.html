@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}My Bookings{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4">
+  <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Your Bookings</h1>
+
+  {% if bookings %}
+  <div class="overflow-hidden rounded-lg shadow-lg">
+    <table class="w-full border-collapse bg-white rounded-lg shadow-md">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="py-3 px-5 text-left">ID</th>
+          <th class="py-3 px-5 text-left">Movie</th>
+          <th class="py-3 px-5 text-left">Showtime</th>
+          <th class="py-3 px-5 text-left">Price</th>
+          <th class="py-3 px-5 text-left">Quantity</th>
+          <th class="py-3 px-5 text-left">Total</th>
+          <th class="py-3 px-5 text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr class="border-b hover:bg-gray-100 transition duration-200">
+          <td class="py-4 px-5">{{ booking.id }}</td>
+          <td class="py-4 px-5 font-semibold">{{ booking.movie.title }}</td>
+          <td class="py-4 px-5">{{ booking.showtime }}</td>
+          <td class="py-4 px-5 font-semibold text-green-600">${{ booking.movie.price }}</td>
+          <td class="py-4 px-5">{{ booking.quantity }}</td>
+          <td class="py-4 px-5 font-semibold text-gray-700">${{ booking.total }}</td>
+          <td class="py-4 px-5 text-center">
+            <form action="/cancel" method="post">
+              <input type="hidden" name="booking_id" value="{{ booking.id }}">
+              <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition duration-200">
+                Cancel
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-gray-600 text-lg text-center mt-8">You haven't booked any movies yet.</p>
+  {% endif %}
+
+  <div class="mt-8 text-center">
+    <a href="/" class="text-lg font-medium text-blue-600 hover:text-blue-800 transition duration-200">
+      &larr; Back to Home
+    </a>
+  </div>
+</div>
+{% endblock %}

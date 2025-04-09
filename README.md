@@ -8,7 +8,7 @@ This is a **FastAPI-based Movie Ticket Booking System** that allows users to:
 - **Admin users** can manage movies (add, update, delete) and view all bookings.
 
 The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for database management, and **Tailwind CSS** for a modern UI.
-## Live : 
+## Live :
 https://movie-ebon-nu.vercel.app/
 
 ## 🛠️ Features
@@ -31,11 +31,27 @@ https://movie-ebon-nu.vercel.app/
 ## 📂 Project Structure
 ```
 📦 movie-booking-app
-├── 📂 templates               # HTML templates (Jinja2)
-├── 📂 static                  # Static files (CSS, JS, images)
-├── 📂 main.py                 # FastAPI application entry point
+├── 📂 app/                    # Main application package
+│   ├── 📂 models/             # Database models
+│   │   ├── user.py
+│   │   ├── movie.py
+│   │   └── booking.py
+│   ├── 📂 routes/             # API route handlers
+│   │   ├── auth.py
+│   │   ├── movies.py
+│   │   ├── bookings.py
+│   │   └── admin.py
+│   ├── 📂 dependencies/       # Dependency functions
+│   │   └── auth.py
+│   ├── 📂 utils/              # Utility functions
+│   │   └── seed.py
+│   ├── 📂 templates/          # HTML templates (Jinja2)
+│   ├── 📜 main.py             # Application entry point
+│   ├── 📜 config.py           # Configuration settings
+│   └── 📜 database.py         # Database connection setup
+├── 📜 run.py                  # Script to run the application
 ├── 📜 requirements.txt        # Dependencies
-├── 📜 README.md               # Project documentation
+└── 📜 README.md               # Project documentation
 ```
 
 ## ⚙️ Installation & Setup
@@ -51,15 +67,15 @@ $ pip install -r requirements.txt
 ```
 
 ### 3️⃣ Set up the database
-Modify `DATABASE_URL` in `main.py` to match your PostgreSQL configuration.
+Modify `DATABASE_URL` in `app/config.py` to match your PostgreSQL configuration.
 Then, run:
 ```sh
-$ python main.py  # This will create the tables
+$ python run.py  # This will create the tables
 ```
 
 ### 4️⃣ Run the server
 ```sh
-$ uvicorn main:app --reload
+$ uvicorn app.main:app --reload
 ```
 Access the app at **http://127.0.0.1:8000**
 
