@@ -8,8 +8,7 @@ This is a **FastAPI-based Movie Ticket Booking System** that allows users to:
 - **Admin users** can manage movies (add, update, delete) and view all bookings.
 
 The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for database management, and **Tailwind CSS** for a modern UI.
-## Live :
-https://movie-ebon-nu.vercel.app/
+
 
 ## 🛠️ Features
 ### ✅ User Features
@@ -57,8 +56,14 @@ https://movie-ebon-nu.vercel.app/
 ## ⚙️ Installation & Setup
 ### 1️⃣ Clone the repository
 ```sh
-$ git clone https://github.com/yourusername/movie-booking-app.git
-$ cd movie-booking-app
+$ git clone https://github.com/abdulchotu7/movie-booking-system.git
+$ cd movie-booking-system
+```
+
+### Create virtual environment
+```sh
+$ python -m venv venv
+$ source venv/bin/activate  # Linux/MacOS
 ```
 
 ### 2️⃣ Install dependencies
