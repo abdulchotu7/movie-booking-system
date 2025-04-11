@@ -62,7 +62,7 @@ cd movie-booking-system
 
 ### Create virtual environment
 ```sh
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # Linux/MacOS
 ```
 
@@ -89,12 +89,12 @@ ADMIN_PASSWORD=adminpass
 After configuring your database connection in the `.env` file, run:
 
 ```sh
-$ python run.py  # This will create the tables
+python3 run.py  # This will create the tables
 ```
 
 ### 4️⃣ Run the server
 ```sh
-$ uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 Access the app at **http://127.0.0.1:8000**
 
@@ -102,19 +102,6 @@ Access the app at **http://127.0.0.1:8000**
 A default admin user is created on first run using the credentials specified in your `.env` file:
 - **Username:** admin
 - **Password:** adminpass
-
-## 🌐 Environment Variables
-
-This project uses environment variables for configuration. The following variables can be set in the `.env` file:
-
-- `DATABASE_URL`: PostgreSQL connection string
-- `SECRET_KEY`: Secret key for session encryption
-- `DEBUG`: Set to "True" to enable debug mode
-- `ADMIN_USERNAME`: Default admin username
-- `ADMIN_PASSWORD`: Default admin password
-
-
-
 
 
 💡 **Built with FastAPI for speed, security, and scalability!** 🚀
