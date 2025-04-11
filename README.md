@@ -7,7 +7,7 @@ This is a **FastAPI-based Movie Ticket Booking System** that allows users to:
 - **Cancel** their bookings.
 - **Admin users** can manage movies (add, update, delete) and view all bookings.
 
-The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for database management, and **Tailwind CSS** for a modern UI.
+The application uses **Sessions**, **PostgreSQL** for database management, and **Tailwind CSS** for a modern UI.
 
 
 ## 🛠️ Features
@@ -25,7 +25,6 @@ The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for dat
 ## 🏗️ Tech Stack
 - **Backend:** FastAPI, PostgreSQL
 - **Frontend:** Jinja2 Templates, Tailwind CSS
-- **Deployment:** Vercel
 
 ## 📂 Project Structure
 ```
@@ -48,6 +47,7 @@ The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for dat
 │   ├── 📜 main.py             # Application entry point
 │   ├── 📜 config.py           # Configuration settings
 │   └── 📜 database.py         # Database connection setup
+├── 📜 .env                    # Environment variables (not in version control)
 ├── 📜 run.py                  # Script to run the application
 ├── 📜 requirements.txt        # Dependencies
 └── 📜 README.md               # Project documentation
@@ -56,24 +56,38 @@ The application uses **JWT authentication**, **SQLAlchemy (PostgreSQL)** for dat
 ## ⚙️ Installation & Setup
 ### 1️⃣ Clone the repository
 ```sh
-$ git clone https://github.com/abdulchotu7/movie-booking-system.git
-$ cd movie-booking-system
+git clone https://github.com/abdulchotu7/movie-booking-system.git
+cd movie-booking-system
 ```
 
 ### Create virtual environment
 ```sh
-$ python -m venv venv
-$ source venv/bin/activate  # Linux/MacOS
+python -m venv venv
+source venv/bin/activate  # Linux/MacOS
 ```
 
 ### 2️⃣ Install dependencies
 ```sh
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### 3️⃣ Set up the database
-Modify `DATABASE_URL` in `app/config.py` to match your PostgreSQL configuration.
-Then, run:
+### 3️⃣ Set up environment variables
+
+Create a `.env` file in the project root with the following variables:
+
+```
+DATABASE_URL=postgresql://username:password@localhost:5432/movie_booking
+SECRET_KEY=your-secret-key-32-chars-long
+DEBUG=True
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=adminpass
+```
+
+
+### 4️⃣ Set up the database
+
+After configuring your database connection in the `.env` file, run:
+
 ```sh
 $ python run.py  # This will create the tables
 ```
@@ -85,29 +99,22 @@ $ uvicorn app.main:app --reload
 Access the app at **http://127.0.0.1:8000**
 
 ## 🔑 Admin Access
-A default admin user is created on first run:
-- **Username:** `admin`
-- **Password:** `adminpass`
+A default admin user is created on first run using the credentials specified in your `.env` file:
+- **Username:** admin
+- **Password:** adminpass
 
-## 🌐 Deployment on Vercel
-### 1️⃣ Install Vercel CLI
-```sh
-$ npm install -g vercel
-```
+## 🌐 Environment Variables
 
-### 2️⃣ Deploy the app
-```sh
-$ vercel
-```
-Follow the on-screen instructions to deploy successfully.
+This project uses environment variables for configuration. The following variables can be set in the `.env` file:
 
-## 🛠️ Future Improvements
-- ✅ Payment gateway integration
-- ✅ User seat selection feature
-- ✅ Improved UI with React/Vue frontend
+- `DATABASE_URL`: PostgreSQL connection string
+- `SECRET_KEY`: Secret key for session encryption
+- `DEBUG`: Set to "True" to enable debug mode
+- `ADMIN_USERNAME`: Default admin username
+- `ADMIN_PASSWORD`: Default admin password
 
 
----
+
+
 
 💡 **Built with FastAPI for speed, security, and scalability!** 🚀
-
