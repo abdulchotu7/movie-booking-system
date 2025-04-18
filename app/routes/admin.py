@@ -1,6 +1,4 @@
-"""
-Admin routes for managing movies and viewing all bookings.
-"""
+
 from fastapi import APIRouter, Request, Form, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -23,9 +21,7 @@ async def admin_movies(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Display the admin movies management page.
-    """
+   
     movies = db.query(Movie).all()
     return templates.TemplateResponse("admin_movies.html", {
         "request": request,
@@ -39,9 +35,7 @@ async def add_movie_form(
     request: Request,
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Display the form to add a new movie.
-    """
+  
     return templates.TemplateResponse("admin_add_movie.html", {
         "request": request,
         "user": request.session.get("user"),
@@ -60,9 +54,7 @@ async def add_movie(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Process the form to add a new movie.
-    """
+   
     try:
         movie = Movie(
             title=title,
@@ -74,7 +66,7 @@ async def add_movie(
         )
         db.add(movie)
         db.commit()
-        return RedirectResponse(url="/admin/movies", status_code=303)
+        return RedirectResponse(url="/admin/movies", status_code=200)
     except IntegrityError:
         db.rollback()
         raise HTTPException(status_code=400, detail="Movie already exists")
@@ -86,9 +78,7 @@ async def edit_movie_form(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Display the form to edit a movie.
-    """
+   
     movie = db.query(Movie).filter(Movie.id == id).first()
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
@@ -112,9 +102,7 @@ async def update_movie(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Process the form to update a movie.
-    """
+   
     movie = db.query(Movie).filter(Movie.id == id).first()
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
@@ -156,9 +144,7 @@ async def admin_bookings(
     db: Session = Depends(get_db),
     admin_user: User = Depends(require_admin)
 ):
-    """
-    Display all bookings for admin.
-    """
+    
     bookings = (
         db.query(Booking)
         .options(joinedload(Booking.movie))

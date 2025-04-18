@@ -1,6 +1,4 @@
-"""
-Main application entry point.
-"""
+
 import logging
 from fastapi import FastAPI
 from starlette.middleware.sessions import SessionMiddleware
@@ -39,8 +37,5 @@ app.include_router(admin_router)
 # Initialize seed data
 @app.on_event("startup")
 async def startup_event():
-    """
-    Initialize seed data on application startup.
-    """
     initialize_data()
     logger.info("Application started and seed data initialized")

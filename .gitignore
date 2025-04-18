@@ -1,4 +1,14 @@
+# Deployment
 .vercel
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -11,19 +21,42 @@ __pycache__/
 *.pyd
 
 # Distribution / packaging
-.DS_Store
 build/
 dist/
 *.egg-info/
+*.egg
 
-# Environments
+# Virtual environments
 .env
-venv/
+.venv
 env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # Log files
 *.log
+logs/
 
-# IDE
+# IDE specific files
 .idea/
+.vscode/
 *.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database
+*.db
+*.sqlite3
+
+# Local development settings
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

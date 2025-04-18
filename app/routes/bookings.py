@@ -1,6 +1,4 @@
-"""
-Routes for booking movie tickets and viewing bookings.
-"""
+
 from fastapi import APIRouter, Request, Form, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -21,9 +19,7 @@ async def book_movie(
     movie_id: int,
     db: Session = Depends(get_db)
 ):
-    """
-    Display the booking form for a specific movie.
-    """
+   
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
     
@@ -46,9 +42,7 @@ async def create_booking(
     quantity: int = Form(..., gt=0),
     db: Session = Depends(get_db)
 ):
-    """
-    Process the booking form submission.
-    """
+    
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
     
@@ -71,9 +65,7 @@ async def create_booking(
 
 @router.get("/bookings", response_class=HTMLResponse)
 async def view_bookings(request: Request, db: Session = Depends(get_db)):
-    """
-    Display the user's bookings.
-    """
+  
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
     
@@ -97,9 +89,7 @@ async def cancel_booking(
     booking_id: int = Form(...),
     db: Session = Depends(get_db)
 ):
-    """
-    Cancel a booking.
-    """
+   
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
     

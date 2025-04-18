@@ -1,6 +1,4 @@
-"""
-Routes for viewing movies and the home page.
-"""
+
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -15,9 +13,7 @@ templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request, db: Session = Depends(get_db)):
-    """
-    Display the home page with a list of movies.
-    """
+   
     movies = db.query(Movie).all()
     return templates.TemplateResponse("index.html", {
         "request": request,
